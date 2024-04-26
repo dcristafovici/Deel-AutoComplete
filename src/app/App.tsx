@@ -42,6 +42,11 @@ const App = () => {
       <div className="demo-example">
         <h2>
           AutoComplete component in React TypeScript with <i> API data.</i>
+          <p>
+            * Please note that for async autocomplete the filtering occurs on
+            the backend, which means that at times the filters may not display
+            accurately, but they reflect the data as received from the backend.
+          </p>
           {selectedExternalItem && (
             <span>
               Selected External Item: <i>{selectedExternalItem.label}</i>

@@ -13,6 +13,14 @@ export const ApplicationStyled = styled.main`
     i {
       color: red;
     }
+    p {
+      font-size: 12px;
+      color: gray;
+      max-width: 500px;
+      text-align: center;
+      line-height: 1.5;
+      margin: 20px auto;
+    }
     span {
       display: block;
       margin-top: 20px;
