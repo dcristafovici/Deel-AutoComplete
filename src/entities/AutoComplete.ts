@@ -5,6 +5,9 @@ export interface AutoCompleteData {
 
 export interface AutoCompleteProps {
   data: AutoCompleteData[];
+  fetchFunction?: (name: string) => Promise<AutoCompleteData[]>;
+  selectedItem: AutoCompleteData | null;
+  setSelectedItem: (item: AutoCompleteData | null) => void;
 }
 
 export interface AutoCompleteSearchProps {
@@ -19,6 +22,7 @@ export interface AutoCompleteSearchProps {
 export interface AutoCompleteResultsProps {
   searchText: string;
   data: AutoCompleteData[];
+  showResults: boolean;
   selectItem: (item: AutoCompleteData) => void;
 }
 

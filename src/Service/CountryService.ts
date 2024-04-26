@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { CountryInterface } from "../entities/Country";
 
-const baseURL = "https://restcountries.com/v3.1/";
-export const CountryEndpoints = {
+const baseURL = "https://restcountries.com/v3.1";
+const CountryEndpoints = {
   getAll: (): string => `${baseURL}/all/fields=name,language`,
   getAllByName: (name: string) =>
-    `${baseURL}/name/${name}/fields=name,language`,
+    `${baseURL}/name/${name}?fields=name,language`,
 };
 
 export class CountryService {
@@ -18,7 +18,7 @@ export class CountryService {
 
   static readonly getCountriesByName = (
     name: string,
-  ): Promise<CountryInterface[]> => {
+  ): Promise<AxiosResponse<CountryInterface[]>> => {
     return axios.request({
       url: CountryEndpoints.getAllByName(name),
       method: "GET",

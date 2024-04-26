@@ -7,15 +7,19 @@ import {
   AutoCompleteProps,
 } from "../../entities/AutoComplete";
 import useDebounce from "../../shared/hooks/useDebounce";
+import { filterBySearchText } from "./utils/filterBySearchText";
 
-const AutoComplete: React.FC<AutoCompleteProps> = ({ data }) => {
+const AutoComplete: React.FC<AutoCompleteProps> = ({
+  data,
+  fetchFunction,
+  selectedItem,
+  setSelectedItem,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showResults, setShowResults] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [filteredData, setFilteredData] = useState<AutoCompleteData[]>([]);
-  const [selectedItem, setSelectedItem] = useState<AutoCompleteData | null>(
-    null,
-  );
+
   const autoCompleteRef = useRef<HTMLDivElement>(null);
   const debouncedSearchText = useDebounce(searchText, 500);
 
@@ -46,33 +50,23 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({ data }) => {
 
       setIsLoading(true);
 
-      // We simulate the Promise, eliminating the need to use 'catch' in this context.
       try {
-        const filteredResults = await filterAsync(data, debouncedSearchText);
+        const filteredResults = fetchFunction
+          ? await fetchFunction(debouncedSearchText)
+          : await filterBySearchText(data, debouncedSearchText);
         setFilteredData(filteredResults);
-        setShowResults(!selectedItem && Boolean(filteredResults.length));
+        setShowResults(Boolean(filteredResults.length));
+      } catch (err) {
+        setShowResults(false);
+        setFilteredData([]);
       } finally {
         setIsLoading(false);
       }
     };
 
-    filterData();
+    !selectedItem && filterData();
   }, [debouncedSearchText, data, selectedItem]);
 
-  const filterAsync = (
-    data: AutoCompleteData[],
-    searchText: string,
-  ): Promise<AutoCompleteData[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const regex = new RegExp(`^${searchText}`, "i");
-        const suggestions = data
-          .sort()
-          .filter((v: AutoCompleteData) => regex.test(v.label));
-        resolve(suggestions);
-      }, 500);
-    });
-  };
   const handleSelectItem = (item: AutoCompleteData) => {
     setSearchText(item.label);
     setSelectedItem(item);
@@ -107,13 +101,12 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({ data }) => {
         setShowResults={(value) => setShowResults(value)}
         isLoading={isLoading}
       />
-      {showResults && (
-        <AutoCompleteResults
-          data={filteredData}
-          searchText={searchText}
-          selectItem={(item) => handleSelectItem(item)}
-        />
-      )}
+      <AutoCompleteResults
+        data={filteredData}
+        showResults={showResults}
+        searchText={searchText}
+        selectItem={(item) => handleSelectItem(item)}
+      />
     </AutoCompletetStyled>
   );
 };

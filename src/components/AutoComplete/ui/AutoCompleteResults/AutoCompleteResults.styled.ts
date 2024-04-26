@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 export const AutoCompleteResultsStyled = styled.div`
   background-color: #fff;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 100%;
+  z-index: 5;
   ul {
     max-height: 250px;
     overflow-y: scroll;

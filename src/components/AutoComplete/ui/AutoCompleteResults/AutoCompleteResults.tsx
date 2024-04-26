@@ -6,8 +6,12 @@ import { highlightText } from "../../../../shared/utils/highlightText";
 const AutoCompleteResults: React.FC<AutoCompleteResultsProps> = ({
   data,
   searchText,
+  showResults,
   selectItem,
 }) => {
+  if (!showResults || searchText.length === 0) {
+    return null;
+  }
   return (
     <AutoCompleteResultsStyled>
       <ul>
