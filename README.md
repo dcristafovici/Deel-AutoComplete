@@ -1,6 +1,15 @@
 # AutoComplete
 
-This project was initialized using Vite with React and TypeScript.
+Please note that this autocomplete feature is a basic version, and there is ample room for improvement, including:
+
+1. Implementing unit testing
+2. Segmenting it into more distinct components
+3. Expanding the range of props, such as text, placeholder, and color themes
+4. Separating the select functionality for asynchronous and non-asynchronous operations into two distinct components and encapsulating them within a higher-order component (similar to how the react-select library operates)
+5. Ensuring mobile responsiveness
+6. Utilizing additional keyword hooks.
+
+This example was completed within a timeframe of 3.5 hours, with the primary objective being to create a rudimentary version of an autocomplete feature for homework purposes.
 
 ## Getting Started
 
