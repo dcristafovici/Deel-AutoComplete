@@ -11,6 +11,7 @@ export const AutoCompleteSearchStyled = styled.div<AutoCompleteSearchStyledProps
     border: 1px solid ${(props) => (props.$selected ? "green" : "#f2f2f2")};
     border-radius: 5px;
     padding-left: 10px;
+    padding-right: 40px;
     box-sizing: border-box;
     &::placeholder {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -38,5 +39,13 @@ export const AutoCompleteSearchStyled = styled.div<AutoCompleteSearchStyledProps
       transition: all 0.3s ease-in-out;
       height: 100%;
     }
+  }
+  .loading-result {
+    position: absolute;
+    width: 30px;
+    right: 10px;
+    height: 30px;
+    margin-top: -15px;
+    top: 50%;
   }
 `;

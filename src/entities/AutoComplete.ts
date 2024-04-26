@@ -13,6 +13,7 @@ export interface AutoCompleteSearchProps {
   selectedItem: AutoCompleteData | null;
   removeSelectedItem: () => void;
   setShowResults: (status: boolean) => void;
+  isLoading: boolean;
 }
 
 export interface AutoCompleteResultsProps {
